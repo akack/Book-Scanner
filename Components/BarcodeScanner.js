@@ -28,7 +28,7 @@ export default class BarcodeScannerScreen extends React.Component {
             student_surname: '',
             studentNo: ''
         };
-       
+
     }
     //Search
     search = text => {
@@ -84,7 +84,6 @@ export default class BarcodeScannerScreen extends React.Component {
                 "name": "Luphawu",
                 "surname": "Jack"
             },
-
         ];
         this.setState({
             modalVisible: false,
@@ -135,25 +134,27 @@ export default class BarcodeScannerScreen extends React.Component {
             <View
                 style={{
                     flex: 1,
-        
+
                     flexDirection: 'row',
                     alignContent: 'stretch',
                     overflow: 'hidden',
 
                 }}>
-                <BarCodeScanner
-                    onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-                    style={[StyleSheet.absoluteFill, styles.container]}>
-                    <Image
-                        style={styles.qr}
-                        source={require('../assets/imgs/qr.png')}
-                    />
-                    <Button full light
-                        onPress={() => this.props.navigation.navigate('HomeScreen')}
-                    >
-                        <Text>Cancel</Text>
-                    </Button>
-
+                {!this.state.modalVisible &&
+                    <BarCodeScanner
+                        onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
+                        style={[StyleSheet.absoluteFill, styles.container]}>
+                        <Image
+                            style={styles.qr}
+                            source={require('../assets/imgs/qr.png')}
+                        />
+                        <Button full light
+                            onPress={() => this.props.navigation.navigate('HomeScreen')}
+                        >
+                            <Text>Cancel</Text>
+                        </Button>
+                    </BarCodeScanner>}
+                {
                     <Modal
                         animationType="slide"
                         transparent={false}
@@ -165,8 +166,8 @@ export default class BarcodeScannerScreen extends React.Component {
                             marginTop: 20,
                             paddingHorizontal: 5
                         }}>
-                            <Text style={{marginBottom: 7, padding: 5, fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray'}}>ASSIGNING BOOK TO THE STUDENT</Text>
-                            <Text style={{marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth:1}}>Book Barcode:  {this.state.data}</Text>
+                            <Text style={{ marginBottom: 7, padding: 5, fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray' }}>ASSIGNING BOOK TO THE STUDENT</Text>
+                            <Text style={{ marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth: 1 }}>Book Barcode:  {this.state.data}</Text>
                             <View style={styles.viewStyle}>
                                 <SearchBar
                                     round
@@ -175,7 +176,7 @@ export default class BarcodeScannerScreen extends React.Component {
                                     onClear={text => this.SearchFilterFunction('')}
                                     placeholder="Type Here..."
                                     value={this.state.search}
-                                    containerStyle={{backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 0, borderTopColor:'#fff'}}
+                                    containerStyle={{ backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 0, borderTopColor: '#fff' }}
                                 />
                                 <FlatList
                                     data={this.state.dataSource}
@@ -202,14 +203,15 @@ export default class BarcodeScannerScreen extends React.Component {
                                                             }
                                                             console.log('Student to submit: ', user);
                                                             Alert.alert(
-                                                                'Submitted student succesfully',
+                                                                'Success',
+                                                                'Submitted student succesfully.',
                                                                 [
                                                                     {
                                                                         text: 'Ok', onPress: () => {
                                                                             this.props.navigation.navigate('HomeScreen');
                                                                             this.setModalVisible(!this.state.modalVisible);
                                                                         }
-                                                                    }                        
+                                                                    }
                                                                 ],
                                                                 { cancelable: false }
                                                             )
@@ -221,11 +223,11 @@ export default class BarcodeScannerScreen extends React.Component {
                                                             console.log('Canceled');
                                                         }
                                                     }
-                        
+
                                                 ],
                                                 { cancelable: false }
                                             )
-                                            
+
                                         }}>{item.name} {item.surname}</Text>
                                     )}
                                     enableEmptySections={true}
@@ -244,15 +246,14 @@ export default class BarcodeScannerScreen extends React.Component {
                             </Button>
                         </View>
                     </Modal>
-                </BarCodeScanner>
-
+                }
                 {scanned && (
                     Alert.alert(
                         'Barcode Scanner',
                         'Press "Assign" to assign the book to a student',
                         [
                             {
-                                text: 'Assign', onPress: () => {
+                                text: 'Assign', onPress: async () => {
                                     this.setState({ scanned: false });
                                     this.setModalVisible(true);
                                 }
