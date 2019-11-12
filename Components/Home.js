@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
                         <Text>Scan Book</Text>
                     </Button>
 
-                    <Button large info light style={styles.btn}>
+                    <Button large full info style={styles.btn}>
                     <Icon name='eye' /><Text>View Books</Text>
                     </Button>
 
