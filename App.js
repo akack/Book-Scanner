@@ -26,7 +26,7 @@ const AppNavigator = createStackNavigator(
   {
     HomeScreen: {
       screen: Home, navigationOptions: {
-        headerTitle: 'Barcode Scanner',
+        headerTitle: 'Home Scanner',
         headerTitleStyle: {
           textAlign: 'center'
         }
@@ -44,7 +44,7 @@ const AppNavigator = createStackNavigator(
     },
     BarcodeScannerScreen: {
       screen: BarcodeScanner, navigationOptions: {
-        title: 'Scanner'
+        title: 'Book Scanner'
       }
     },
   },

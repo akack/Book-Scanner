@@ -84,6 +84,66 @@ export default class BarcodeScannerScreen extends React.Component {
                 "name": "Luphawu",
                 "surname": "Jack"
             },
+            {
+                "userId": 5,
+                "studentNo": 5,
+                "name": "Litha",
+                "surname": "Magaqana"
+            },
+            {
+                "userId": 6,
+                "studentNo": 6,
+                "name": "Sledge",
+                "surname": "Gxelesha"
+            },
+            {
+                "userId": 7,
+                "studentNo": 7,
+                "name": "Masibonge",
+                "surname": "Gxelesha"
+            },
+            {
+                "userId": 8,
+                "studentNo": 8,
+                "name": "Xolisa",
+                "surname": "Magaqana"
+            },
+            {
+                "userId": 9,
+                "studentNo": 9,
+                "name": "Lwazi",
+                "surname": "Magaqana"
+            },
+            {
+                "userId": 1,
+                "studentNo": 1,
+                "name": "Akha",
+                "surname": "Magaqana"
+            },
+            {
+                "userId": 12,
+                "studentNo": 2,
+                "name": "Sello",
+                "surname": "Selowa"
+            },
+            {
+                "userId": 3,
+                "studentNo": 3,
+                "name": "Morne",
+                "surname": "Cotzee"
+            },
+            {
+                "userId": 4,
+                "studentNo": 4,
+                "name": "Luphawu",
+                "surname": "Jack"
+            },
+            {
+                "userId": 5,
+                "studentNo": 5,
+                "name": "Litha",
+                "surname": "Magaqana"
+            },
         ];
         this.setState({
             modalVisible: false,
@@ -107,10 +167,8 @@ export default class BarcodeScannerScreen extends React.Component {
             type: type,
             data: data
         });
-        // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     };
     ListViewItemSeparator = () => {
-        //Item sparator view
         return (
             <View
                 style={{
@@ -174,7 +232,7 @@ export default class BarcodeScannerScreen extends React.Component {
                                     searchIcon={{ size: 24 }}
                                     onChangeText={text => this.SearchFilterFunction(text)}
                                     onClear={text => this.SearchFilterFunction('')}
-                                    placeholder="Type Here..."
+                                    placeholder="Search student name..."
                                     value={this.state.search}
                                     containerStyle={{ backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 0, borderTopColor: '#fff' }}
                                 />
@@ -203,8 +261,8 @@ export default class BarcodeScannerScreen extends React.Component {
                                                             }
                                                             console.log('Student to submit: ', user);
                                                             Alert.alert(
-                                                                'Success',
-                                                                'Submitted student succesfully.',
+                                                                'Successfully Assigned Book to student.',
+                                                                `Student Details: ${this.state.studentNo} ${this.state.student_name} ${this.state.student_surname} - Book Barcode: ${this.state.data}`,
                                                                 [
                                                                     {
                                                                         text: 'Ok', onPress: () => {
