@@ -135,9 +135,11 @@ export default class BarcodeScannerScreen extends React.Component {
             <View
                 style={{
                     flex: 1,
-                    width: '100%',
+        
                     flexDirection: 'row',
-                    alignContent: 'stretch'
+                    alignContent: 'stretch',
+                    overflow: 'hidden',
+
                 }}>
                 <BarCodeScanner
                     onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
@@ -163,6 +165,7 @@ export default class BarcodeScannerScreen extends React.Component {
                             marginTop: 20,
                             paddingHorizontal: 5
                         }}>
+                            <Text style={{marginBottom: 7, padding: 5, fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray'}}>ASSIGNING BOOK TO THE STUDENT</Text>
                             <Text style={{marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth:1}}>Book Barcode:  {this.state.data}</Text>
                             <View style={styles.viewStyle}>
                                 <SearchBar
@@ -184,7 +187,45 @@ export default class BarcodeScannerScreen extends React.Component {
                                                 student_surname: item.surname,
                                                 studentNo: item.studentNo,
                                             });
-                                            this.setModalVisible(!this.state.modalVisible);
+                                            Alert.alert(
+                                                'Submit Record',
+                                                'Submiting student record.',
+                                                [
+                                                    {
+                                                        text: 'Submit', onPress: () => {
+                                                            const user = {
+                                                                student_name: this.state.student_name,
+                                                                student_surname: this.state.student_surname,
+                                                                studentNo: this.state.studentNo,
+                                                                data: this.state.data,
+                                                                type: this.state.type
+                                                            }
+                                                            console.log('Student to submit: ', user);
+                                                            Alert.alert(
+                                                                'Submitted student succesfully',
+                                                                [
+                                                                    {
+                                                                        text: 'Ok', onPress: () => {
+                                                                            this.props.navigation.navigate('HomeScreen');
+                                                                            this.setModalVisible(!this.state.modalVisible);
+                                                                        }
+                                                                    }                        
+                                                                ],
+                                                                { cancelable: false }
+                                                            )
+                                                        }
+                                                    },
+                                                    {
+                                                        text: 'Cancel', onPress: () => {
+                                                            this.setState({ scanned: false });
+                                                            console.log('Canceled');
+                                                        }
+                                                    }
+                        
+                                                ],
+                                                { cancelable: false }
+                                            )
+                                            
                                         }}>{item.name} {item.surname}</Text>
                                     )}
                                     enableEmptySections={true}
