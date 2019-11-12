@@ -163,7 +163,7 @@ export default class BarcodeScannerScreen extends React.Component {
                             marginTop: 20,
                             paddingHorizontal: 5
                         }}>
-                            <Text style={{marginBottom: 7, marginTop: 8, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth:1}}>Book Barcode:  {this.state.data}</Text>
+                            <Text style={{marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth:1}}>Book Barcode:  {this.state.data}</Text>
                             <View style={styles.viewStyle}>
                                 <SearchBar
                                     round
