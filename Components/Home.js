@@ -24,15 +24,17 @@ export default class HomeScreen extends React.Component {
     render() {
 
         return (
-            <Container>
+            <Container style={styles.container}>
                 <Content>
-                    <Button full light onPress={() => {
+                    <Button  large full light style={styles.btn} onPress={() => {
                         this.props.navigation.navigate('BarcodeScannerScreen');
                     }}>
-                        <Text>Scan Book Barcode</Text>
+                         <Icon name='camera' />
+                        <Text>Scan Book</Text>
                     </Button>
-                    <Button full info>
-                        <Text>View Books</Text>
+
+                    <Button large full info style={styles.btn}>
+                    <Icon name='eye' /><Text>View Books</Text>
                     </Button>
                 </Content>
             </Container>
@@ -44,10 +46,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignContent: 'stretch',
         marginTop: 30,
         paddingHorizontal: 5
     },
+    btn: {
+        marginBottom: 5
+    }
 
 });

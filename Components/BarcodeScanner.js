@@ -28,7 +28,6 @@ export default class BarcodeScannerScreen extends React.Component {
             student_surname: '',
             studentNo: ''
         };
-
     }
     //Search
     search = text => {
