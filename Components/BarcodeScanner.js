@@ -208,10 +208,10 @@ export default class BarcodeScannerScreen extends React.Component {
                 {scanned && (
                     Alert.alert(
                         'Barcode Scanner',
-                        'Press ok to scan again',
+                        'Press "Assign" to assign the book to a student',
                         [
                             {
-                                text: 'Ok', onPress: () => {
+                                text: 'Assign', onPress: () => {
                                     this.setState({ scanned: false });
                                     this.setModalVisible(true);
                                 }
