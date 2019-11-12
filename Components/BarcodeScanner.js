@@ -163,7 +163,7 @@ export default class BarcodeScannerScreen extends React.Component {
                             marginTop: 20,
                             paddingHorizontal: 5
                         }}>
-                            <Text style={{marginBottom: 7, marginTop: 8, padding: 5, borderColor: 'lightgrey', borderStyle:'solid'}}>Book Barcode:  {this.state.data}</Text>
+                            <Text style={{marginBottom: 7, marginTop: 8, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth:1}}>Book Barcode:  {this.state.data}</Text>
                             <View style={styles.viewStyle}>
                                 <SearchBar
                                     round
@@ -172,7 +172,7 @@ export default class BarcodeScannerScreen extends React.Component {
                                     onClear={text => this.SearchFilterFunction('')}
                                     placeholder="Type Here..."
                                     value={this.state.search}
-                                    containerStyle={{backgroundColor: '#ffffff', borderColor: '#ffffff'}}
+                                    containerStyle={{backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 0, borderTopColor:'#fff'}}
                                 />
                                 <FlatList
                                     data={this.state.dataSource}
