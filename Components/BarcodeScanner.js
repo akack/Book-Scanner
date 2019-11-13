@@ -3,6 +3,8 @@ import {
     Text, View, StyleSheet, Dimensions, Image, Alert, TouchableHighlight, Modal, FlatList,
     ActivityIndicator,
     Platform,
+    ScrollView,
+    KeyboardAvoidingView,
 } from 'react-native';
 import { Container, Header, Content, Tab, Tabs, Button, Picker, Form } from 'native-base';
 import { SearchBar } from 'react-native-elements';
@@ -26,7 +28,8 @@ export default class BarcodeScannerScreen extends React.Component {
             dataSource: [],
             student_name: '',
             student_surname: '',
-            studentNo: ''
+            studentNo: '',
+            selectedBackground: ''
         };
     }
     //Search
@@ -59,12 +62,6 @@ export default class BarcodeScannerScreen extends React.Component {
     async componentDidMount() {
         this.getPermissionsAsync();
         this.arrayholder = [
-            {
-                "userId": 1,
-                "studentNo": 1,
-                "name": "Akha",
-                "surname": "Magaqana"
-            },
             {
                 "userId": 12,
                 "studentNo": 2,
@@ -166,6 +163,7 @@ export default class BarcodeScannerScreen extends React.Component {
             type: type,
             data: data
         });
+
     };
     ListViewItemSeparator = () => {
         return (
@@ -187,148 +185,131 @@ export default class BarcodeScannerScreen extends React.Component {
         if (hasCameraPermission === false) {
             return <Text>No access to camera</Text>;
         }
-        return (
-            <View
-                style={{
-                    flex: 1,
+        if (!scanned) {
+            return (
+                <View style={styles.cameraBarcodeScannerWrapper}>
+                    {!this.state.modalVisible &&
+                        <BarCodeScanner
+                            onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
+                            style={{ height: 350, width: 400, alignItems: 'center' }}>
+                            {/* <Image
+                                style={styles.qr}
+                                source={require('../assets/imgs/qr.png')}
+                            /> */}
 
-                    flexDirection: 'row',
-                    alignContent: 'stretch',
-                    overflow: 'hidden',
-
-                }}>
-                {!this.state.modalVisible &&
-                    <BarCodeScanner
-                        onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-                        style={[StyleSheet.absoluteFill, styles.container]}>
-                        <Image
-                            style={styles.qr}
-                            source={require('../assets/imgs/qr.png')}
-                        />
+                        </BarCodeScanner>
+                    }
+                    <View>
                         <Button full light
                             onPress={() => this.props.navigation.navigate('HomeScreen')}
                         >
                             <Text>Cancel</Text>
                         </Button>
-                    </BarCodeScanner>}
+                    </View>
+                </View>
+            )
+        }
+
+        return (
+
+            <KeyboardAvoidingView behavior="padding" enabled>
                 {
-                    <Modal
-                        animationType="slide"
-                        transparent={false}
-                        visible={this.state.modalVisible}
-                        height="200"
-                    >
-                        <View style={{
-                            flex: 1,
-                            marginTop: 20,
-                            paddingHorizontal: 5
-                        }}>
-                            <Text style={{ marginBottom: 7, padding: 5, fontSize: 20, fontWeight: 'bold', textAlign: 'center', backgroundColor: 'lightgray' }}>ASSIGNING BOOK TO THE STUDENT</Text>
-                            <Text style={{ marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth: 1 }}>Book Barcode:  {this.state.data}</Text>
-                            <View style={styles.viewStyle}>
-                                <SearchBar
-                                    round
-                                    searchIcon={{ size: 24 }}
-                                    onChangeText={text => this.SearchFilterFunction(text)}
-                                    onClear={text => this.SearchFilterFunction('')}
-                                    placeholder="Search student name..."
-                                    value={this.state.search}
-                                    containerStyle={{ backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: 0, borderBottomWidth: 0, borderTopColor: '#fff' }}
-                                />
-                                <FlatList
-                                    data={this.state.dataSource}
-                                    ItemSeparatorComponent={this.ListViewItemSeparator}
-                                    renderItem={({ item }) => (
-                                        <Text style={styles.textStyle} onPress={() => {
-                                            this.setState({
-                                                student_name: item.name,
-                                                student_surname: item.surname,
-                                                studentNo: item.studentNo,
-                                            });
-                                            Alert.alert(
-                                                'Submit Record',
-                                                'Submiting student record.',
-                                                [
-                                                    {
-                                                        text: 'Submit', onPress: () => {
-                                                            const user = {
-                                                                student_name: this.state.student_name,
-                                                                student_surname: this.state.student_surname,
-                                                                studentNo: this.state.studentNo,
-                                                                data: this.state.data,
-                                                                type: this.state.type
-                                                            }
-                                                            console.log('Student to submit: ', user);
-                                                            Alert.alert(
-                                                                'Successfully Assigned Book to student.',
-                                                                `Student Details: ${this.state.studentNo} ${this.state.student_name} ${this.state.student_surname} - Book Barcode: ${this.state.data}`,
-                                                                [
-                                                                    {
-                                                                        text: 'Ok', onPress: () => {
-                                                                            this.props.navigation.navigate('HomeScreen');
-                                                                            this.setModalVisible(!this.state.modalVisible);
-                                                                        }
-                                                                    }
-                                                                ],
-                                                                { cancelable: false }
-                                                            )
-                                                        }
-                                                    },
-                                                    {
-                                                        text: 'Cancel', onPress: () => {
-                                                            this.setState({ scanned: false });
-                                                            console.log('Canceled');
-                                                        }
-                                                    }
-
-                                                ],
-                                                { cancelable: false }
-                                            )
-
-                                        }}>{item.name} {item.surname}</Text>
-                                    )}
-                                    enableEmptySections={true}
-                                    style={{ marginTop: 10 }}
-                                    keyExtractor={(item, index) => index.toString()}
-                                />
-                            </View>
+                    scanned && <View style={{
+                        marginTop: 10,
+                        paddingHorizontal: 5,
+                    }}>
+                        <Text style={{ marginBottom: 7, padding: 5, fontSize: 15, textAlign: 'center', backgroundColor: 'lightgray' }}>ASSIGNING BOOK TO THE STUDENT</Text>
+                        <Text style={{ marginBottom: 7, padding: 8, borderBottomColor: 'lightgrey', borderBottomWidth: .5 }}>Book Barcode:  {this.state.data}</Text>
+                        <View style={styles.viewStyle}>
+                            <SearchBar
+                                round
+                                searchIcon={{ size: 24 }}
+                                onChangeText={text => this.SearchFilterFunction(text)}
+                                onClear={text => this.SearchFilterFunction('')}
+                                placeholder="Search student name..."
+                                value={this.state.search}
+                                containerStyle={{ backgroundColor: '#ffffff', borderColor: '#ffffff', borderStyle: 'solid', borderWidth: .5, borderBottomWidth: .5, borderTopColor: '#fff', borderBottomColor: 'lightgrey' }}
+                            />
                         </View>
-
                         <View>
-                            <Button full info
-                                onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }}>
-                                <Text>close</Text>
+                            <Button full light
+                                onPress={() =>{
+                                    this.setState({ scanned: false });
+                                     this.props.navigation.navigate('BarcodeScannerScreen');
+                                    }}
+                            >
+                                <Text>Re-Scan Book</Text>
                             </Button>
                         </View>
-                    </Modal>
+                    </View>
                 }
-                {scanned && (
-                    Alert.alert(
-                        'Barcode Scanner',
-                        'Press "Assign" to assign the book to a student',
-                        [
-                            {
-                                text: 'Assign', onPress: async () => {
-                                    this.setState({ scanned: false });
-                                    this.setModalVisible(true);
-                                }
-                            },
-                            {
-                                text: 'Cancel', onPress: () => {
-                                    this.setState({ scanned: false });
-                                    console.log('Canceled');
-                                }
-                            }
+                {scanned &&
 
-                        ],
-                        { cancelable: false }
-                    )
-                )}
-            </View>
+                    <ScrollView>
+                        <Content style={{ marginBottom: 80, paddingHorizontal: 5 }}>
+                            <FlatList
+                                data={this.state.dataSource}
+                                ItemSeparatorComponent={this.ListViewItemSeparator}
+                                renderItem={({ item }) => (
+                                    <Text style={styles.textStyle} onPress={() => {
+                                        this.setState({
+                                            student_name: item.name,
+                                            student_surname: item.surname,
+                                            studentNo: item.studentNo,
+                                        });
+                                        Alert.alert(
+                                            'Submit Record',
+                                            'Submiting student record.',
+                                            [
+                                                {
+                                                    text: 'Submit', onPress: () => {
+                                                        const user = {
+                                                            student_name: this.state.student_name,
+                                                            student_surname: this.state.student_surname,
+                                                            studentNo: this.state.studentNo,
+                                                            data: this.state.data,
+                                                            type: this.state.type
+                                                        }
+                                                        console.log('Student to submit: ', user);
+                                                        Alert.alert(
+                                                            'Successfully Assigned Book to student.',
+                                                            `Student Details: ${this.state.studentNo} ${this.state.student_name} ${this.state.student_surname} - Book Barcode: ${this.state.data}`,
+                                                            [
+                                                                {
+                                                                    text: 'Ok', onPress: () => {
+                                                                        this.props.navigation.navigate('HomeScreen');
+                                                                        this.setModalVisible(!this.state.modalVisible);
+                                                                    }
+                                                                }
+                                                            ],
+                                                            { cancelable: false }
+                                                        )
+                                                    }
+                                                },
+                                                {
+                                                    text: 'Cancel', onPress: () => {
+                                                        //this.setState({ scanned: false });
+                                                        console.log('Not Submitted');
+                                                    }
+                                                }
+
+                                            ],
+                                            { cancelable: false }
+                                        )
+
+                                    }}>{item.name} {item.surname}</Text>
+                                )}
+                                enableEmptySections={true}
+                                style={{ marginTop: 10 }}
+                                keyExtractor={(item, index) => index.toString()}
+                            />
+                        </Content>
+                    </ScrollView>
+                }
+            </KeyboardAvoidingView>
         );
     }
+
 }
 const styles = StyleSheet.create({
     container: {
@@ -354,12 +335,20 @@ const styles = StyleSheet.create({
         width: '70%',
         color: 'white',
     }, viewStyle: {
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: 'white',
+        // justifyContent: 'center',
+        // marginBottom: 5,
+        // backgroundColor: 'white',
+        overflow: 'hidden',
         marginTop: Platform.OS == 'ios' ? 30 : 0,
+        marginBottom: 20
     },
     textStyle: {
         padding: 10,
+    },
+    cameraBarcodeScannerWrapper: {
+        overflow: 'hidden',
+        width: 400,
+        height: 400,
+        alignSelf: 'center'
     },
 });
