@@ -26,7 +26,6 @@ const AppNavigator = createStackNavigator(
   {
     HomeScreen: {
       screen: Home, navigationOptions: {
-        headerTitle: 'Home Scanner',
         headerTitleStyle: {
           textAlign: 'center'
         }
@@ -49,7 +48,7 @@ const AppNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'LoginScreen',
   }
 );
 

@@ -79,14 +79,14 @@ export default class LoginScreen extends React.Component {
             <KeyboardAvoidingView enabled behavior="padding">
                 <ScrollView>
                     <Container style={styles.container}>
-                        {/* <View style={{
+                        <View style={{
                             justifyContent: 'center',
                             textAlign: 'center',
                             alignItems: 'center',
                             flexDirection: 'column',
                         }}>
-                            <Image source={require('../assets/imgs/naive-logo.png')} style={{ width: 200, height: 160 }} />
-                        </View> */}
+                            <Image source={require('../assets/imgs/scanner.png')} style={{ width: 200, height: 200 }} />
+                        </View>
                         <Formik
                             initialValues={{ email: '', password: '' }}
                             onSubmit={values => {

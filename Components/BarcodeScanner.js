@@ -12,8 +12,9 @@ import { SearchBar } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
-const { width } = Dimensions.get('window')
-const qrSize = width * 0.7
+const { width } = Dimensions.get('window');
+const qrSize = width * 0.7;
+
 export default class BarcodeScannerScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -191,7 +192,7 @@ export default class BarcodeScannerScreen extends React.Component {
                     {!this.state.modalVisible &&
                         <BarCodeScanner
                             onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
-                            style={{ height: 350, width: 400, alignItems: 'center' }}>
+                            style={[StyleSheet.absoluteFill, styles.cameraContainer]}>
                             {/* <Image
                                 style={styles.qr}
                                 source={require('../assets/imgs/qr.png')}
@@ -199,11 +200,19 @@ export default class BarcodeScannerScreen extends React.Component {
 
                         </BarCodeScanner>
                     }
-                    <View>
-                        <Button full light
+                    <View style={{
+                        position: 'absolute',
+                        bottom: 30,
+                        paddingHorizontal: 5,
+                        alignContent: 'stretch',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                    }}>
+                        <Button full warning style={{width:'100%'}}
                             onPress={() => this.props.navigation.navigate('HomeScreen')}
                         >
-                            <Text>Cancel</Text>
+                            <Text>Cancel Scan</Text>
                         </Button>
                     </View>
                 </View>
@@ -233,10 +242,10 @@ export default class BarcodeScannerScreen extends React.Component {
                         </View>
                         <View>
                             <Button full light
-                                onPress={() =>{
+                                onPress={() => {
                                     this.setState({ scanned: false });
-                                     this.props.navigation.navigate('BarcodeScannerScreen');
-                                    }}
+                                    this.props.navigation.navigate('BarcodeScannerScreen');
+                                }}
                             >
                                 <Text>Re-Scan Book</Text>
                             </Button>
@@ -347,8 +356,10 @@ const styles = StyleSheet.create({
     },
     cameraBarcodeScannerWrapper: {
         overflow: 'hidden',
-        width: 400,
+        width: '100%',
         height: 400,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        flex: 1,
+
     },
 });
