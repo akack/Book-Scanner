@@ -36,42 +36,45 @@ export default class LoginScreen extends React.Component {
     }
 
     handleSubmit = values => {
-        this.props.navigation.navigate('HomeScreen');
-        // if (values.email.length > 0 && values.password.length > 0) {
-        //     console.log('Pass/email: ', values.email, values.password);
-        //     this.appService.singInFireBase(values.email, values.password)
-        //         .then(
-        //             (res) => {
-        //                 console.log('res', res.user.uid)
-        //                 this.appService.getUserDetails(JSON.parse(res.user.uid))
-        //                     .then(
-        //                         async res => {
-        //                             await AsyncStorage.setItem("user", JSON.stringify(res));
-        //                             this.setState({
-        //                                 email: '',
-        //                                 password: ''
-        //                             });
-        //                             this.props.navigation.navigate('HomeScreen');
-        //                         },
-        //                         err => {
-        //                             this.setState({
-        //                                 err: true
-        //                             })
-        //                             this.error = true;
-        //                             console.log('error 2', err)
-        //                         }
-        //                     )
-        //             },
-        //             err => {
-        //                 console.log(err)
-        //                 Alert.alert(
-        //                     'Login Error',
-        //                     'Invalid email / password.'
-        //                 )
-        //             }
-        //         )
+        //this.props.navigation.navigate('HomeScreen');
+        if (values.email.length > 0 && values.password.length > 0) {
+            console.log('Pass/email: ', values.email, values.password);
+            this.appService.singInFireBase(values.email, values.password)
+                .then(
+                    (res) => {
+                        console.log('res', res.user.uid)
+                        this.appService.getUserDetails(res.user.uid)
+                            .then(
+                                async res => {
+                                    //await AsyncStorage.setItem("user", JSON.stringify(res));
+                                    if(res === true) {
+                                        this.setState({
+                                            email: '',
+                                            password: ''
+                                        });
+                                        this.props.navigation.navigate('HomeScreen');
+                                    }
+                                   
+                                },
+                                err => {
+                                    this.setState({
+                                        err: true
+                                    })
+                                    this.error = true;
+                                    console.log('error 2', err)
+                                }
+                            )
+                    },
+                    err => {
+                        console.log(err)
+                        Alert.alert(
+                            'Login Error',
+                            'Invalid email / password.'
+                        )
+                    }
+                )
 
-        // }
+        }
     }
 
     render() {

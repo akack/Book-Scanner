@@ -3,7 +3,7 @@ import { AsyncStorage, Alert, Platform } from "react-native";
 import * as firebase from "firebase";
 
 export class AppService {
-    addUserToDBUrl = 'http://10.0.2.2:3000/add_user_to_db';
+    addUserToDBUrl = 'https://fm2rj65ye9.execute-api.us-east-1.amazonaws.com/dev/add_user_to_db';
     getUserDetailsUrl =  'https://cors-anywhere.herokuapp.com/https://fm2rj65ye9.execute-api.us-east-1.amazonaws.com/dev/get_user_details';
     addCommissioningDataUrl = 'http://10.0.2.2:3000/store_commission_sheet';
 
@@ -66,9 +66,9 @@ export class AppService {
         });
         console.log('resulte', results)
         const userDetails = await results.json();
-
-        console.log('user', userDetails.json());
-        return userDetails;
+        await AsyncStorage.setItem("user", JSON.stringify(userDetails));
+        console.log('user', userDetails);
+        return true;
     }
 
     async logout() {
