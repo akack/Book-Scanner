@@ -70,22 +70,24 @@ export default class HomeScreen extends React.Component {
                 alignContent: 'stretch'
             }}>
                 <View style={styles.container}>
-                    <Button large block info style={styles.btn} onPress={() => { this.goToScan() }}>
-                        <Icon name='camera' /><Text style={styles.titleText}>Scan Book</Text>
+                    <Button large full block info style={styles.btn} onPress={() => { }}>
+                        <Icon name='book' /><Text style={styles.titleText}>Allocate Book</Text>
                     </Button>
                     <Button large full block success style={styles.btn}>
-                        <Icon name='book' /><Text style={styles.titleText}>Books</Text>
+                        <Icon name='paper' /><Text style={styles.titleText}>Query Book</Text>
                     </Button>
                     <Button large full block success style={styles.btn}>
-                        <Icon name='person' /><Text style={styles.titleText}>Students</Text>
+                        <Icon name='book' /><Text style={styles.titleText}>Book Checks</Text>
                     </Button>
                     <Button large full block info style={styles.btn}>
-                        <Icon name='paper' /><Text style={styles.titleText}>Reports</Text>
+                        <Icon name='paper' /><Text style={styles.titleText}>Log A Fault</Text>
                     </Button>
-
-                    {/* extra */}
-
-
+                    <Button large full block info style={styles.btn}>
+                        <Icon name='person' /><Text style={styles.titleText}>Profile</Text>
+                    </Button>
+                    <Button large full block danger style={styles.btn} onPress={() => { this.props.navigation.navigate('LoginScreen') }}>
+                        <Icon name='lock' /><Text style={styles.titleText}>Logout</Text>
+                    </Button>
                 </View>
             </ImageBackground>
 
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'column',
         alignContent: 'stretch',
-        height: 150
+        height: 110
     },
     titleText: {
         fontSize: 12

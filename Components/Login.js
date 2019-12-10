@@ -37,7 +37,6 @@ export default class LoginScreen extends React.Component {
     }
 
     handleSubmit = values => {
-        //this.props.navigation.navigate('HomeScreen');
         if (values.email.length > 0 && values.password.length > 0) {
             this.setState({
                 isLoading: true
