@@ -44,7 +44,7 @@ export default class HomeScreen extends React.Component {
                         { cancelable: false }
                     )
                 }}>
-                <Icon name='power' />
+                <Icon name='lock' />
             </TouchableOpacity>
         ),
         headerLeft: (
@@ -64,28 +64,32 @@ export default class HomeScreen extends React.Component {
     }
     render() {
         return (
-            <ImageBackground source={require('../assets/imgs/bg.jpg')} style={{
+            <ImageBackground source={require('../assets/imgs/bg2.jpg')} style={{
                 width: '100%', height: '100%', justifyContent: 'center',
                 flexDirection: 'column',
                 alignContent: 'stretch'
             }}>
                 <View style={styles.container}>
-                    <Button large full block info style={styles.btn} onPress={() => { }}>
-                        <Icon name='book' /><Text style={styles.titleText}>Allocate Book</Text>
+                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => { 
+                        this.props.navigation.navigate('AllocateBookScreen');
+                    }}>
+                        <Icon name='attach' /><Text style={styles.titleText}>Allocate Book</Text>
                     </Button>
                     <Button large full block success style={styles.btn}>
-                        <Icon name='paper' /><Text style={styles.titleText}>Query Book</Text>
+                        <Icon name='folder' /><Text style={styles.titleText}>Query Book</Text>
                     </Button>
                     <Button large full block success style={styles.btn}>
                         <Icon name='book' /><Text style={styles.titleText}>Book Checks</Text>
                     </Button>
-                    <Button large full block info style={styles.btn}>
+                    <Button large full block info style={[styles.btn, styles.rgb]}>
                         <Icon name='paper' /><Text style={styles.titleText}>Log A Fault</Text>
                     </Button>
-                    <Button large full block info style={styles.btn}>
+                    <Button large full block info style={[styles.btn, styles.rgb]}>
                         <Icon name='person' /><Text style={styles.titleText}>Profile</Text>
                     </Button>
-                    <Button large full block danger style={styles.btn} onPress={() => { this.props.navigation.navigate('LoginScreen') }}>
+                    <Button large full block danger style={styles.btn} onPress={() => {
+                        this.props.navigation.navigate('LoginScreen');
+                    }}>
                         <Icon name='lock' /><Text style={styles.titleText}>Logout</Text>
                     </Button>
                 </View>
@@ -118,6 +122,17 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontSize: 12
+    },
+    rgb: {
+        backgroundColor: 'rgba(65, 200, 243, 0.85)'
+    },
+    rgb2: {
+        backgroundColor: 'rgba(65, 200, 243, 0.85)'
+    },
+    rgb3: {
+        backgroundColor: 'rgba(65, 200, 243, 0.85)'
+    },
+    rgb4: {
+        backgroundColor: 'rgba(65, 200, 243, 0.85)'
     }
-
 });

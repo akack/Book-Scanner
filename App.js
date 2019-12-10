@@ -8,6 +8,7 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import BarcodeScanner from './Components/BarcodeScanner';
 import * as firebase from 'firebase';
+import AllocateBook from './Components/pages/AllocateBook';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCoom1l7P-rrOaDbasLqOlH-cBtJ4nRyi0",
@@ -43,6 +44,9 @@ const AppNavigator = createStackNavigator(
     },
     BarcodeScannerScreen: {
       screen: BarcodeScanner
+    },
+    AllocateBookScreen: {
+      screen: AllocateBook
     },
   },
   {
