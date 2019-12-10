@@ -65,7 +65,7 @@ export default class AllocateBook extends React.Component {
         super(props);
         this.state = {
             active: false,
-            text: ''
+            text: 'Akha'
         };
     }
 
@@ -78,11 +78,17 @@ export default class AllocateBook extends React.Component {
                     <Icon name='barcode' /><Text style={styles.titleText}>Scan Book</Text>
                 </Button>
                 <Text style={{ marginVertical: 3 }}>Book Details</Text>
-                <TextInput
+                <Textarea
                     numberOfLines={10}
                     multiline={true}
-                    style={{ height: 200, borderColor: 'lightgrey', borderWidth: 1, marginTop: 3 }}
-                    onChange={(text) => this.setState({ text })}
+                    style={{
+                        height: 200,
+                        borderColor: 'lightgrey',
+                        borderWidth: 1,
+                        marginTop: 3,
+                        padding: 8
+                    }}
+                    onChange={text => this.setState({ text })}
                     value={this.state.text}
                 />
 
