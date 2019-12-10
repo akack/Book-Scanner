@@ -1,21 +1,61 @@
 import * as React from 'react';
 import {
-    Text, View, StyleSheet, Dimensions, Image, Alert, TouchableHighlight, Modal, FlatList,
-    ActivityIndicator,
+    Text, View, StyleSheet, Dimensions, Image, Alert, TouchableOpacity, FlatList,
     Platform,
     ScrollView,
     KeyboardAvoidingView,
 } from 'react-native';
-import { Container, Header, Content, Tab, Tabs, Button, Picker, Form } from 'native-base';
+import { Content, Button, Icon } from 'native-base';
 import { SearchBar } from 'react-native-elements';
-
 import * as Permissions from 'expo-permissions';
-
 import { BarCodeScanner } from 'expo-barcode-scanner';
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.7;
 
 export default class BarcodeScannerScreen extends React.Component {
+    static navigationOptions = ({ navigation }) => ({
+        headerTitle: <Text style={{
+            alignSelf: 'center',
+            fontSize: 18,
+            justifyContent: 'center',
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+            textAlign: 'center',
+            fontWeight: 'bold'
+        }}>
+            Book Scanner
+        </Text>,
+        headerRight: (
+            <TouchableOpacity style={{ paddingRight: 15, color: 'red' }}
+                onPress={() => {
+                    Alert.alert(
+                        'Logout Alert',
+                        'Are you sure you want to logout?',
+                        [
+                            {
+                                text: 'Ok', onPress: () => {
+                                    navigation.navigate('LoginScreen')
+                                }
+                            },
+                            { text: 'Cancel', onPress: () => console.log('Canceled') }
+
+                        ],
+                        { cancelable: false }
+                    )
+                }}>
+                <Icon name='power' />
+            </TouchableOpacity>
+        ),
+        headerLeft: (
+            <TouchableOpacity style={{ paddingLeft: 15, color: 'red' }}
+                onPress={() => {
+                    console.log('Profile link')
+                }}>
+                <Icon name='person' />
+            </TouchableOpacity>
+        )
+    })
     constructor(props) {
         super(props);
         this.state = {
@@ -209,7 +249,7 @@ export default class BarcodeScannerScreen extends React.Component {
                         justifyContent: 'center',
                         alignSelf: 'center',
                     }}>
-                        <Button full warning style={{width:'100%'}}
+                        <Button full warning style={{ width: '100%' }}
                             onPress={() => this.props.navigation.navigate('HomeScreen')}
                         >
                             <Text>Cancel Scan</Text>

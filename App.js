@@ -42,9 +42,7 @@ const AppNavigator = createStackNavigator(
       }
     },
     BarcodeScannerScreen: {
-      screen: BarcodeScanner, navigationOptions: {
-        title: 'Book Scanner'
-      }
+      screen: BarcodeScanner
     },
   },
   {

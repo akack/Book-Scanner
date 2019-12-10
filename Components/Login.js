@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { StyleSheet, SafeAreaView, View, KeyboardAvoidingView, ScrollView, Image, Alert } from 'react-native'
+import { StyleSheet, SafeAreaView, View, KeyboardAvoidingView, ScrollView, Image, Alert, ActivityIndicator } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -26,7 +26,8 @@ export default class LoginScreen extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            isLoading: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -38,39 +39,54 @@ export default class LoginScreen extends React.Component {
     handleSubmit = values => {
         //this.props.navigation.navigate('HomeScreen');
         if (values.email.length > 0 && values.password.length > 0) {
-            console.log('Pass/email: ', values.email, values.password);
+            this.setState({
+                isLoading: true
+            })
             this.appService.singInFireBase(values.email, values.password)
                 .then(
                     (res) => {
-                        console.log('res', res.user.uid)
                         this.appService.getUserDetails(res.user.uid)
                             .then(
                                 async res => {
-                                    //await AsyncStorage.setItem("user", JSON.stringify(res));
-                                    if(res === true) {
+                                    if (res.length) {
                                         this.setState({
                                             email: '',
-                                            password: ''
+                                            password: '',
+                                            isLoading: false
                                         });
                                         this.props.navigation.navigate('HomeScreen');
+                                    } else {
+                                        this.setState({
+                                            email: '',
+                                            password: '',
+                                            isLoading: false
+                                        });
+                                        Alert.alert(
+                                            'Login Error',
+                                            'Invalid email / password.'
+                                        )
                                     }
-                                   
                                 },
                                 err => {
                                     this.setState({
-                                        err: true
+                                        err: true,
+                                        isLoading: false
                                     })
                                     this.error = true;
-                                    console.log('error 2', err)
                                 }
                             )
                     },
                     err => {
-                        console.log(err)
+                        this.setState({
+                            email: '',
+                            password: '',
+                            isLoading: false
+                        });
                         Alert.alert(
                             'Login Error',
                             'Invalid email / password.'
                         )
+
                     }
                 )
 
@@ -78,6 +94,13 @@ export default class LoginScreen extends React.Component {
     }
 
     render() {
+        if (this.state.isLoading) {
+            return (
+                <View style={styles.container}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                </View>
+            )
+        }
         return (
             <KeyboardAvoidingView enabled behavior="padding">
                 <ScrollView>

@@ -4,8 +4,9 @@ import * as firebase from "firebase";
 
 export class AppService {
     addUserToDBUrl = 'https://fm2rj65ye9.execute-api.us-east-1.amazonaws.com/dev/add_user_to_db';
-    getUserDetailsUrl =  'https://cors-anywhere.herokuapp.com/https://fm2rj65ye9.execute-api.us-east-1.amazonaws.com/dev/get_user_details';
+    getUserDetailsUrl =  'https://fm2rj65ye9.execute-api.us-east-1.amazonaws.com/dev/get_user_details';
     addCommissioningDataUrl = 'http://10.0.2.2:3000/store_commission_sheet';
+
 
     // addUserToDBUrl = "http://localhost:3000/add_user_to_db";
     // getUserDetailsUrl = "http://localhost:3000/get_user_details";
@@ -64,11 +65,9 @@ export class AppService {
                 "Content-Type": "application/json"
             })
         });
-        console.log('resulte', results)
         const userDetails = await results.json();
         await AsyncStorage.setItem("user", JSON.stringify(userDetails));
-        console.log('user', userDetails);
-        return true;
+        return userDetails;
     }
 
     async logout() {
@@ -78,5 +77,9 @@ export class AppService {
 
     passwordRecovery(email) {
         return firebase.auth().sendPasswordResetEmail(email);
+    }
+
+    logout() {
+        localStorage.clear();
     }
 }

@@ -33,7 +33,11 @@ export default class HomeScreen extends React.Component {
                         'Logout Alert',
                         'Are you sure you want to logout?',
                         [
-                            { text: 'Ok', onPress: () => navigation.navigate('LogoutScreen') },
+                            {
+                                text: 'Ok', onPress: () => {
+                                    navigation.navigate('LoginScreen')
+                                }
+                            },
                             { text: 'Cancel', onPress: () => console.log('Canceled') }
 
                         ],
@@ -80,7 +84,7 @@ export default class HomeScreen extends React.Component {
                     </Button>
 
                     {/* extra */}
-                   
+
 
                 </View>
             </ImageBackground>

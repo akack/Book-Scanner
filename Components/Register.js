@@ -41,7 +41,7 @@ export default class RegisterScreen extends React.Component {
       password: '',
       confirmPassword: '',
       email: '',
-      uid: ''
+      uidFB: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -49,7 +49,7 @@ export default class RegisterScreen extends React.Component {
   goToLogin = () => {
     this.props.navigation.navigate('LoginScreen');
   }
-  
+
   handleSubmit = values => {
     if (values.email.length > 0 && values.password.length > 0) {
 
@@ -61,7 +61,7 @@ export default class RegisterScreen extends React.Component {
               email: values.email,
               name: values.name,
               surname: values.surname,
-              uid: res.user.uid
+              uidFB: res.user.uid
             })
             console.log('State: ', this.state);
             setTimeout(() => {
