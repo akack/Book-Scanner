@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { StyleSheet, Image, Text, View, TouchableOpacity, TextInput } from "react-native";
+import { StyleSheet, Image, Text, View, TouchableOpacity, TextInput, AsyncStorage } from "react-native";
 import {
     Container,
     Header,
@@ -16,6 +16,7 @@ import {
     Button,
     Textarea
 } from "native-base";
+import { SearchBar } from "react-native-elements";
 
 export default class AllocateBook extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -65,9 +66,19 @@ export default class AllocateBook extends React.Component {
         super(props);
         this.state = {
             active: false,
-            text: 'Akha'
+            text: ''
         };
     }
+
+    async componentDidMount() {
+        const textData = await AsyncStorage.getItem('BookScanned');
+        console.log('scanned: ', textData);
+        this.setState({
+            text: textData
+        })
+    }
+
+
 
     render() {
         return (
@@ -77,21 +88,41 @@ export default class AllocateBook extends React.Component {
                 }}>
                     <Icon name='barcode' /><Text style={styles.titleText}>Scan Book</Text>
                 </Button>
-                <Text style={{ marginVertical: 3 }}>Book Details</Text>
+                {/* <Text style={{ marginVertical: 3 }}>Book Details</Text>
                 <Textarea
                     numberOfLines={10}
                     multiline={true}
+                    placeholder="Book Details"
                     style={{
                         height: 200,
                         borderColor: 'lightgrey',
                         borderWidth: 1,
-                        marginTop: 3,
+                        marginTop: 3,   
                         padding: 8
                     }}
-                    onChange={text => this.setState({ text })}
+                    onChangeText={text => this.setState({ text })}
                     value={this.state.text}
                 />
+                <SearchBar
+                    searchIcon={{ size: 24 }}
+                    onChangeText={text => this.SearchFilterFunction(text)}
+                    onClear={text => this.SearchFilterFunction('')}
+                    placeholder="Search student name..."
+                    value={this.state.search}
+                    containerStyle={{
+                        backgroundColor: '#ffffff',
+                        borderColor: '#ffffff',
+                        borderStyle: 'solid',
+                        borderWidth: .5,
+                        borderBottomWidth: .5,
+                        borderTopColor: '#fff',
+                        borderBottomColor: 'lightgrey'
+                    }} />
+                <Button large full block info style={styles.rgb} onPress={() => {
 
+                }}>
+                    <Icon name='add' /><Text style={styles.titleText}>Allocate Book</Text>
+                </Button> */}
             </View>
         );
     }
