@@ -7,7 +7,7 @@ import {
 } from "native-base";
 import { SearchBar } from "react-native-elements";
 
-export default class AllocateBook extends React.Component {
+export default class RequestEdit extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: <Text style={{
             alignSelf: 'center',
@@ -19,7 +19,7 @@ export default class AllocateBook extends React.Component {
             textAlign: 'center',
             fontWeight: 'bold'
         }}>
-            Allocate Book
+            Request Edit
         </Text>,
         headerRight: (
             <TouchableOpacity style={{ paddingRight: 15, color: 'red' }}
@@ -67,41 +67,6 @@ export default class AllocateBook extends React.Component {
                 }}>
                     <Icon name='barcode' /><Text style={styles.titleText}>Scan Book</Text>
                 </Button>
-                {/* <Text style={{ marginVertical: 3 }}>Book Details</Text>
-                <Textarea
-                    numberOfLines={10}
-                    multiline={true}
-                    placeholder="Book Details"
-                    style={{
-                        height: 200,
-                        borderColor: 'lightgrey',
-                        borderWidth: 1,
-                        marginTop: 3,   
-                        padding: 8
-                    }}
-                    onChangeText={text => this.setState({ text })}
-                    value={this.state.text}
-                />
-                <SearchBar
-                    searchIcon={{ size: 24 }}
-                    onChangeText={text => this.SearchFilterFunction(text)}
-                    onClear={text => this.SearchFilterFunction('')}
-                    placeholder="Search student name..."
-                    value={this.state.search}
-                    containerStyle={{
-                        backgroundColor: '#ffffff',
-                        borderColor: '#ffffff',
-                        borderStyle: 'solid',
-                        borderWidth: .5,
-                        borderBottomWidth: .5,
-                        borderTopColor: '#fff',
-                        borderBottomColor: 'lightgrey'
-                    }} />
-                <Button large full block info style={styles.rgb} onPress={() => {
-
-                }}>
-                    <Icon name='add' /><Text style={styles.titleText}>Allocate Book</Text>
-                </Button> */}
             </View>
         );
     }

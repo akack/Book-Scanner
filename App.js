@@ -9,6 +9,9 @@ import Register from './Components/Register';
 import BarcodeScanner from './Components/BarcodeScanner';
 import * as firebase from 'firebase';
 import AllocateBook from './Components/pages/AllocateBook';
+import BookCheck from './Components/pages/BookeCheck';
+import QueryBook from './Components/pages/QueryBook';
+import RequestEdit from './Components/pages/RequestEdit';
 
 var firebaseConfig = {
   apiKey: "AIzaSyCoom1l7P-rrOaDbasLqOlH-cBtJ4nRyi0",
@@ -48,9 +51,18 @@ const AppNavigator = createStackNavigator(
     AllocateBookScreen: {
       screen: AllocateBook
     },
+    BookCheckScreen: {
+      screen: BookCheck
+    },
+    QueryBookScreen: {
+      screen: QueryBook
+    },
+    RequestEditScreen: {
+      screen: RequestEdit
+    }
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'LoginScreen',
   }
 );
 

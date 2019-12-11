@@ -75,13 +75,19 @@ export default class HomeScreen extends React.Component {
                     }}>
                         <Icon name='attach' /><Text style={styles.titleText}>Allocate Book</Text>
                     </Button>
-                    <Button large full block success style={styles.btn}>
+                    <Button large full block success style={styles.btn} onPress={() => { 
+                        this.props.navigation.navigate('QueryBookScreen');
+                    }}>
                         <Icon name='folder' /><Text style={styles.titleText}>Query Book</Text>
                     </Button>
-                    <Button large full block success style={styles.btn}>
-                        <Icon name='book' /><Text style={styles.titleText}>Book Checks</Text>
+                    <Button large full block success style={styles.btn} onPress={() => { 
+                        this.props.navigation.navigate('BookCheckScreen');
+                    }}>
+                        <Icon name='book' /><Text style={styles.titleText}>Book Check</Text>
                     </Button>
-                    <Button large full block info style={[styles.btn, styles.rgb]}>
+                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => { 
+                        this.props.navigation.navigate('RequestEditScreen');
+                    }}>
                         <Icon name='paper' /><Text style={styles.titleText}>Log A Fault</Text>
                     </Button>
                     <Button large full block info style={[styles.btn, styles.rgb]}>

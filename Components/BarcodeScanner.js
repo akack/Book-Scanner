@@ -51,9 +51,9 @@ export default class BarcodeScannerScreen extends React.Component {
         headerLeft: (
             <TouchableOpacity style={{ paddingLeft: 15, color: 'red' }}
                 onPress={() => {
-                    console.log('Profile link')
+                    navigation.navigate('HomeScreen')
                 }}>
-                <Icon name='person' />
+                <Icon name='home' />
             </TouchableOpacity>
         )
     })
@@ -275,69 +275,70 @@ export default class BarcodeScannerScreen extends React.Component {
                         paddingHorizontal: 5,
                     }}>
                         <KeyboardAvoidingView behavior="padding" enabled>
-                            <View>
-                                {/* <Button large full block info
-                                onPress={() => {
-                                    this.setState({ scanned: false });
-                                    this.props.navigation.navigate('BarcodeScannerScreen');
-                                }}
-                            >
-                                <Icon name='barcode' /><Text>Re-Scan Book</Text>
-                            </Button> */}
-                                <Text style={{ marginBottom: 7, padding: 5, fontSize: 15, textAlign: 'center', backgroundColor: 'forestgreen', color: 'white' }}>Book Details</Text>
+                            <ScrollView>
+                                <View>
+                                    <Text style={{
+                                        marginBottom: 7,
+                                        padding: 8,
+                                        fontSize: 15,
+                                        textAlign: 'center',
+                                        backgroundColor: 'rgba(65, 200, 243, 0.8)',
+                                        color: 'white'
+                                    }}>Book Details</Text>
 
-                                <Textarea
-                                    numberOfLines={10}
-                                    multiline={true}
-                                    placeholder="Book Details"
-                                    style={{
-                                        height: 200,
-                                        borderColor: 'lightgrey',
-                                        borderWidth: 1,
-                                        marginTop: 3,
-                                        padding: 8
-                                    }}
-                                    onChangeText={text => this.setState({ text })}
-                                    value={
-                                        `${this.state.data}\nStudent Details\nName: ${this.state.student_name}\nSurname: ${this.state.student_surname}`
-                                    }
-                                />
-                                <SearchBar
-                                    searchIcon={{ size: 24 }}
-                                    onChangeText={text => this.SearchFilterFunction(text)}
-                                    onClear={text => this.SearchFilterFunction('')}
-                                    placeholder="Search student name..."
-                                    value={this.state.search}
-                                    containerStyle={{
-                                        backgroundColor: '#ffffff',
-                                        borderColor: '#ffffff',
-                                        borderStyle: 'solid',
-                                        borderWidth: .5,
-                                        borderBottomWidth: .5,
-                                        borderTopColor: '#fff',
-                                        borderBottomColor: 'lightgrey'
-                                    }} />
-                            </View>
+                                    <Textarea
+                                        numberOfLines={10}
+                                        multiline={true}
+                                        placeholder="Book Details"
+                                        editable={false}
+                                        style={{
+                                            height: 200,
+                                            borderColor: 'lightgrey',
+                                            borderWidth: 1,
+                                            marginTop: 3,
+                                            padding: 8
+                                        }}
+                                        onChangeText={text => this.setState({ text })}
+                                        value={
+                                            `Book Code: ${this.state.data}\nStudent Details\nName: ${this.state.student_name}\nSurname: ${this.state.student_surname}`
+                                        }
+                                    />
+                                    <SearchBar
+                                        searchIcon={{ size: 24 }}
+                                        onChangeText={text => this.SearchFilterFunction(text)}
+                                        onClear={text => this.SearchFilterFunction('')}
+                                        placeholder="Search student name..."
+                                        value={this.state.search}
+                                        containerStyle={{
+                                            backgroundColor: '#ffffff',
+                                            borderColor: '#ffffff',
+                                            borderStyle: 'solid',
+                                            borderWidth: .5,
+                                            borderBottomWidth: .5,
+                                            borderTopColor: '#fff',
+                                            borderBottomColor: 'lightgrey'
+                                        }} />
+                                </View>
 
-                            <View style={{ flexDirection: 'row', height: 450 }}>
-                                <FlatList
-                                    data={this.state.dataSource}
-                                    ItemSeparatorComponent={this.ListViewItemSeparator}
-                                    renderItem={({ item }) => (
-                                        <Text style={styles.textStyle} onPress={() => {
-                                            this.setState({
-                                                student_name: item.name,
-                                                student_surname: item.surname,
-                                                studentNo: item.studentNo,
-                                            });
-                                        }}>{item.name} {item.surname}</Text>
-                                    )}
-                                    enableEmptySections={true}
-                                    style={{ marginTop: 10 }}
-                                    keyExtractor={(item, index) => index.toString()}
-                                />
-                            </View>
-
+                                <View style={{ flexDirection: 'row', height: 250 }}>
+                                    <FlatList
+                                        data={this.state.dataSource}
+                                        ItemSeparatorComponent={this.ListViewItemSeparator}
+                                        renderItem={({ item }) => (
+                                            <Text style={styles.textStyle} onPress={() => {
+                                                this.setState({
+                                                    student_name: item.name,
+                                                    student_surname: item.surname,
+                                                    studentNo: item.studentNo,
+                                                });
+                                            }}>{item.name} {item.surname}</Text>
+                                        )}
+                                        enableEmptySections={true}
+                                        style={{ marginTop: 10 }}
+                                        keyExtractor={(item, index) => index.toString()}
+                                    />
+                                </View>
+                            </ScrollView>
                         </KeyboardAvoidingView>
 
                         <View>

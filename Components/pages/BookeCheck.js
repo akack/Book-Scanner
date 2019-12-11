@@ -5,9 +5,9 @@ import {
     Button,
     Textarea
 } from "native-base";
-import { SearchBar } from "react-native-elements";
+import { CheckBox } from 'react-native-elements'
 
-export default class AllocateBook extends React.Component {
+export default class BookCheck extends React.Component {
     static navigationOptions = ({ navigation }) => ({
         headerTitle: <Text style={{
             alignSelf: 'center',
@@ -19,7 +19,7 @@ export default class AllocateBook extends React.Component {
             textAlign: 'center',
             fontWeight: 'bold'
         }}>
-            Allocate Book
+            Book Check
         </Text>,
         headerRight: (
             <TouchableOpacity style={{ paddingRight: 15, color: 'red' }}
@@ -51,15 +51,18 @@ export default class AllocateBook extends React.Component {
             </TouchableOpacity>
         )
     })
+
+
     constructor(props) {
         super(props);
         this.state = {
             active: false,
-            text: ''
+            text: '',
+            checked: ''
         };
     }
-
     render() {
+        const { checked } = this.state;
         return (
             <View style={styles.container}>
                 <Button large full block info style={styles.rgb} onPress={() => {
@@ -67,41 +70,39 @@ export default class AllocateBook extends React.Component {
                 }}>
                     <Icon name='barcode' /><Text style={styles.titleText}>Scan Book</Text>
                 </Button>
-                {/* <Text style={{ marginVertical: 3 }}>Book Details</Text>
                 <Textarea
                     numberOfLines={10}
                     multiline={true}
                     placeholder="Book Details"
                     style={{
-                        height: 200,
+                        height: '50%',
                         borderColor: 'lightgrey',
                         borderWidth: 1,
-                        marginTop: 3,   
+                        marginTop: 3,
                         padding: 8
                     }}
                     onChangeText={text => this.setState({ text })}
-                    value={this.state.text}
-                />
-                <SearchBar
-                    searchIcon={{ size: 24 }}
-                    onChangeText={text => this.SearchFilterFunction(text)}
-                    onClear={text => this.SearchFilterFunction('')}
-                    placeholder="Search student name..."
-                    value={this.state.search}
-                    containerStyle={{
-                        backgroundColor: '#ffffff',
-                        borderColor: '#ffffff',
-                        borderStyle: 'solid',
-                        borderWidth: .5,
-                        borderBottomWidth: .5,
-                        borderTopColor: '#fff',
-                        borderBottomColor: 'lightgrey'
-                    }} />
-                <Button large full block info style={styles.rgb} onPress={() => {
+                    value={this.state.text} />
+                <Text>Book Status: Available</Text>
 
-                }}>
-                    <Icon name='add' /><Text style={styles.titleText}>Allocate Book</Text>
-                </Button> */}
+                <View style={styles.radioButton}>
+                    <CheckBox
+                        title='First'
+                        checkedIcon='dot-circle-o'
+                        uncheckedIcon='circle-o'
+                        onIconPress={() => { this.setState({ checked: 'first' }); }}
+                    />
+
+                    <CheckBox
+                        title='Second'
+                        checkedIcon='dot-circle-o'
+                        uncheckedIcon='circle-o'
+                        onIconPress={() => { this.setState({ checked: 'Second' }); }}
+                    />
+
+
+                </View>
+
             </View>
         );
     }
@@ -137,4 +138,17 @@ const styles = StyleSheet.create({
     rgb: {
         backgroundColor: 'rgba(65, 200, 243, 0.85)'
     },
+    radioButton: {
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        paddingHorizontal: 5,
+        justifyContent: 'center',
+        alignContent: 'stretch',
+        textAlign: 'center',
+        backgroundColor: 'white'
+    },
+    radio: {
+        backgroundColor: 'black'
+    }
 });
