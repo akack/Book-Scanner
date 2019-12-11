@@ -70,22 +70,22 @@ export default class HomeScreen extends React.Component {
                 alignContent: 'stretch'
             }}>
                 <View style={styles.container}>
-                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => { 
+                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => {
                         this.props.navigation.navigate('AllocateBookScreen');
                     }}>
                         <Icon name='attach' /><Text style={styles.titleText}>Allocate Book</Text>
                     </Button>
-                    <Button large full block success style={styles.btn} onPress={() => { 
+                    <Button large full block success style={styles.btn} onPress={() => {
                         this.props.navigation.navigate('QueryBookScreen');
                     }}>
                         <Icon name='folder' /><Text style={styles.titleText}>Query Book</Text>
                     </Button>
-                    <Button large full block success style={styles.btn} onPress={() => { 
+                    <Button large full block success style={styles.btn} onPress={() => {
                         this.props.navigation.navigate('BookCheckScreen');
                     }}>
                         <Icon name='book' /><Text style={styles.titleText}>Book Check</Text>
                     </Button>
-                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => { 
+                    <Button large full block info style={[styles.btn, styles.rgb]} onPress={() => {
                         this.props.navigation.navigate('RequestEditScreen');
                     }}>
                         <Icon name='paper' /><Text style={styles.titleText}>Log A Fault</Text>
@@ -94,7 +94,20 @@ export default class HomeScreen extends React.Component {
                         <Icon name='person' /><Text style={styles.titleText}>Profile</Text>
                     </Button>
                     <Button large full block danger style={styles.btn} onPress={() => {
-                        this.props.navigation.navigate('LoginScreen');
+                        Alert.alert(
+                            'Logout Alert',
+                            'Are you sure you want to logout?',
+                            [
+                                {
+                                    text: 'Ok', onPress: () => {
+                                        this.props.navigation.navigate('LoginScreen');
+                                    }
+                                },
+                                { text: 'Cancel', onPress: () => console.log('Canceled') }
+
+                            ],
+                            { cancelable: false }
+                        )
                     }}>
                         <Icon name='lock' /><Text style={styles.titleText}>Logout</Text>
                     </Button>

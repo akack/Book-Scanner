@@ -201,13 +201,13 @@ export default class BarcodeScannerScreen extends React.Component {
         this.setState({ hasCameraPermission: status === 'granted' });
     };
 
-    handleBarCodeScanned = ({ type, data }) => {
+     handleBarCodeScanned = async ({ type, data }) => {
         this.setState({
             scanned: true,
             type: type,
             data: data,
         });
-
+        await AsyncStorage.setItem('BookScanned', data);
     };
     ListViewItemSeparator = () => {
         return (

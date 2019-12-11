@@ -62,8 +62,17 @@ export default class BookCheck extends React.Component {
         this.state = {
             active: false,
             text: 'Akha Magaqana',
-            checked: false
+            allocated: false,
+            updated: false
         };
+    }
+
+    async componentDidMount() {
+        const t = await AsyncStorage.getItem('BookScanned');
+        console.log('T: ', t);
+        this.setState({
+            text: t
+        })
     }
     render() {
         const { checked } = this.state;
@@ -85,7 +94,6 @@ export default class BookCheck extends React.Component {
                         borderWidth: 1,
                         marginTop: 3,
                         padding: 8,
-                        backgroundColor: 'lightgrey'
                     }}
                     onChangeText={text => this.setState({ text })}
                     value={this.state.text} />
@@ -95,9 +103,10 @@ export default class BookCheck extends React.Component {
                 <View style={styles.radioButton}>
                     <ListItem style={styles.checkbox}>
                         <CheckBox
-                            checked={this.state.checked}
+                            checked={this.state.allocated}
                             onPress={() => this.setState({
-                                checked: true
+                                allocated: true,
+                                updated: false
                             })}
                         />
                         <Body>
@@ -106,20 +115,21 @@ export default class BookCheck extends React.Component {
                     </ListItem>
                     <ListItem style={styles.checkbox}>
                         <CheckBox
-                            checked={this.state.checked}
+                            checked={this.state.updated}
                             onPress={() => this.setState({
-                                checked: true
+                                updated: true,
+                                allocated: false
                             })}
                         />
                         <Body>
-                            <Text>Update</Text>
+                            <Text> Update</Text>
                         </Body>
                     </ListItem>
                 </View>
                 <Button large full block info style={styles.rgb} onPress={() => {
                     console.log('Updated Record Successfully');
                 }}>
-                    <Icon name='pencil' /><Text style={styles.titleText}>Update Record</Text>
+                    <Text style={styles.titleText}>Update Record</Text>
                 </Button>
             </View>
         );
@@ -159,9 +169,8 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'flex-start',
         flexDirection: 'row',
-        paddingHorizontal: 5,
         alignContent: 'stretch',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         textAlign: 'center',
         backgroundColor: 'white'
     },

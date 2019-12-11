@@ -19,7 +19,7 @@ export default class RequestEdit extends React.Component {
             textAlign: 'center',
             fontWeight: 'bold'
         }}>
-            Request Edit
+            Log A Fault
         </Text>,
         headerRight: (
             <TouchableOpacity style={{ paddingRight: 15, color: 'red' }}
