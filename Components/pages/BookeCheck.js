@@ -3,9 +3,13 @@ import { StyleSheet, Image, Text, View, TouchableOpacity, TextInput, AsyncStorag
 import {
     Icon,
     Button,
-    Textarea
+    Textarea,
+    CheckBox,
+    ListItem,
+    Body,
+    Right,
+    Left
 } from "native-base";
-import { CheckBox } from 'react-native-elements'
 
 export default class BookCheck extends React.Component {
     static navigationOptions = ({ navigation }) => ({
@@ -57,8 +61,8 @@ export default class BookCheck extends React.Component {
         super(props);
         this.state = {
             active: false,
-            text: '',
-            checked: ''
+            text: 'Akha Magaqana',
+            checked: false
         };
     }
     render() {
@@ -74,35 +78,49 @@ export default class BookCheck extends React.Component {
                     numberOfLines={10}
                     multiline={true}
                     placeholder="Book Details"
+                    disabled={true}
                     style={{
                         height: '50%',
                         borderColor: 'lightgrey',
                         borderWidth: 1,
                         marginTop: 3,
-                        padding: 8
+                        padding: 8,
+                        backgroundColor: 'lightgrey'
                     }}
                     onChangeText={text => this.setState({ text })}
                     value={this.state.text} />
+
                 <Text>Book Status: Available</Text>
 
                 <View style={styles.radioButton}>
-                    <CheckBox
-                        title='First'
-                        checkedIcon='dot-circle-o'
-                        uncheckedIcon='circle-o'
-                        onIconPress={() => { this.setState({ checked: 'first' }); }}
-                    />
-
-                    <CheckBox
-                        title='Second'
-                        checkedIcon='dot-circle-o'
-                        uncheckedIcon='circle-o'
-                        onIconPress={() => { this.setState({ checked: 'Second' }); }}
-                    />
-
-
+                    <ListItem style={styles.checkbox}>
+                        <CheckBox
+                            checked={this.state.checked}
+                            onPress={() => this.setState({
+                                checked: true
+                            })}
+                        />
+                        <Body>
+                            <Text> Allocated</Text>
+                        </Body>
+                    </ListItem>
+                    <ListItem style={styles.checkbox}>
+                        <CheckBox
+                            checked={this.state.checked}
+                            onPress={() => this.setState({
+                                checked: true
+                            })}
+                        />
+                        <Body>
+                            <Text>Update</Text>
+                        </Body>
+                    </ListItem>
                 </View>
-
+                <Button large full block info style={styles.rgb} onPress={() => {
+                    console.log('Updated Record Successfully');
+                }}>
+                    <Icon name='pencil' /><Text style={styles.titleText}>Update Record</Text>
+                </Button>
             </View>
         );
     }
@@ -130,10 +148,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'column',
         alignContent: 'stretch',
-        height: 110
     },
     titleText: {
-        fontSize: 12
+        fontSize: 14
     },
     rgb: {
         backgroundColor: 'rgba(65, 200, 243, 0.85)'
@@ -143,12 +160,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         flexDirection: 'row',
         paddingHorizontal: 5,
-        justifyContent: 'center',
         alignContent: 'stretch',
+        justifyContent: 'center',
         textAlign: 'center',
         backgroundColor: 'white'
     },
     radio: {
         backgroundColor: 'black'
+    },
+    checkbox: {
+        width: 110,
+        marginRight: 20
     }
 });
